@@ -1,61 +1,63 @@
-﻿
-html {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    font-style: sans-serif;
+﻿body {
+    width:100%;
+    height:100%;
+    background-color:#56536A;
 }
 
-body {
-    width: 100%;
-    height: 100%;
-    font-family: 'Open Sans',sans-serif;
-    margin: 0;
-    background-color: #4A374A;
+#login{
+    position:absolute;
+    top:350px;
+    left:50%;
+    
+    width:300px;
+    height:300px;
+    margin:-150px 0 0 -150px;
+    
+}
+#login h1{
+    
+    text-align: center;
+    color: white;
+    text-shadow: 0 0 10px;
+    letter-spacing: 1px;
+    font-size:40px;
+    
 }
 
-#login {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin: -150px 0 0 -150px;
-    width: 300px;
-    height: 300px;
+#name h1 {
+    font-size: 60px;
+    color: white;
+    text-shadow:20px 12px 10px #2D2D3F;
+    letter-spacing: 1px;
 }
 
-    #login h1 {
-        color: #fff;
-        text-shadow: 0 0 10px;
-        letter-spacing: 1px;
-        text-align: center;
-    }
-
-h1 {
-    font-size: 2em;
-    margin: 0.67em 0;
-}
-
-input {
-    width: 278px;
-    height: 18px;
+.tb {
     margin-bottom: 10px;
+    width: 100%;
+    height: 30px;
     outline: none;
-    padding: 10px;
-    font-size: 13px;
+    /*padding:10px;*/
     color: #fff;
-    text-shadow: 1px 1px 1px;
+    /*text-shadow: 1px 1px 1px;*/
     border-top: 1px solid #312E3D;
     border-left: 1px solid #312E3D;
     border-right: 1px solid #312E3D;
     border-bottom: 1px solid #56536A;
+    /*border:none;*/
     border-radius: 4px;
     background-color: #2D2D3F;
 }
 
-.but {
-    width: 300px;
-    min-height: 20px;
-    display: block;
+#name {
+    text-align: center;
+    width: 100%;
+    position: absolute;
+    top: 100px;
+}
+
+.btn {
+    margin: 0;
+    
     background-color: #4a77d4;
     border: 1px solid #3762bc;
     color: #fff;
@@ -63,5 +65,9 @@ input {
     font-size: 15px;
     line-height: normal;
     border-radius: 5px;
-    margin: 0;
+    
+}
+
+#rbtlLogin{
+    
 }
