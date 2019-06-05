@@ -15,7 +15,7 @@
 </head>
 <body>
     
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" method="post">
         
         <div id="name">
             <h1>在线考试系统</h1>
@@ -24,16 +24,15 @@
             <h1>Login</h1>
             <div style="text-align:center;">
             <asp:RadioButtonList ID="rbtlLogin" runat="server" RepeatDirection="Horizontal" CellSpacing="5" Width="100%" Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" ForeColor="White">
-                <asp:ListItem>学生</asp:ListItem>
+                <asp:ListItem Selected="True">学生</asp:ListItem>
                 <asp:ListItem>教师</asp:ListItem>
                 <asp:ListItem>管理员</asp:ListItem>
             </asp:RadioButtonList>
             </div>
             <br />
-            <input id="Text1" type="text" class="tb" placeholder="用户名" />
-            <input id="Password1" type="password" class="tb" placeholder="密码" />
+            <input id="Text1" type="text" class="tb" placeholder="用户名" name="user" required="required" />
+            <input id="Password1" type="password" class="tb" placeholder="密码" name="password" required="required" />
             <asp:Button ID="btnLogin" runat="server" Text="登录" CssClass="btn" Width="100%" OnClick="btnLogin_Click" />
-
         </div>
             
     </form>
