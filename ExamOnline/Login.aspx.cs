@@ -33,12 +33,15 @@ public partial class Login1 : System.Web.UI.Page
         {
             case 0:
                 tbName = "tb_Student";
+                Session["sf"] = "学生";
                 break;
             case 1:
-                tbName = "tb_Student";
+                tbName = "tb_Teacher";
+                Session["sf"] = "教师";
                 break;
             case 2:
                 tbName = "tb_Admin";
+                Session["sf"] = "管理员";
                 break;
         }
             
@@ -54,7 +57,23 @@ public partial class Login1 : System.Web.UI.Page
             conn.Open();
             SqlDataReader reader = command.ExecuteReader();
             if (reader.Read())
-                Response.Write("<script>alert('fdge')</script>");
+            {
+                Response.Write("<script>alert('登录成功！')</script>");
+                Session["ID"] = reader["ID"];
+                Session["Name"] = reader["Name"];
+                Session["Sex"] = reader["Sex"];
+                if ("学生" == Session["sf"].ToString()) 
+                {
+                    Session["Class"] = reader["Class"];
+                    Response.Redirect("Main.aspx");
+                }
+
+                if ("教师" == Session["sf"].ToString())
+                {
+                    Session["Course"] = reader["Course"];
+                }
+ 
+            }
             else
                 Response.Write("<script>alert('失败')</script>");
         }
