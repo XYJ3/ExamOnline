@@ -1,0 +1,146 @@
+﻿body {
+    width: 100%;
+    height: 100%;
+    background-color: #56536A;
+}
+
+#title {
+    width: 100%;
+    height: 40px;
+    /*text-align: center;*/
+}
+
+
+    #title h1 {
+        color: white;
+        font-size: xx-large;
+        height: 100%;
+        text-align: center;
+    }
+
+#border {
+    width: 100%;
+    /*background-color: #56536A;*/
+}
+
+#menu {
+    /*background-color:#808080;*/
+    width:20%;
+    height:400px;
+    float:left;
+}
+
+#btnExam {
+    margin: 0;
+    background-color: #4a77d4;
+    border: 1px solid #3762bc;
+    color: #fff;
+    font-size: 15px;
+    width: 10%;
+    height: 25px;
+    position:absolute;
+    top: 150px;
+    left:20px;
+}
+
+#btnScore {
+    margin: 0;
+    background-color: #4a77d4;
+    border: 1px solid #3762bc;
+    color: #fff;
+    font-size: 15px;
+    width: 10%;
+    height: 25px;
+    position: absolute;
+    top: 200px;
+    left:20px;
+}
+
+#btnStu {
+    margin: 0;
+    background-color: #4a77d4;
+    border: 1px solid #3762bc;
+    color: #fff;
+    font-size: 15px;
+    width: 150px;
+    height: 30px;
+    position: absolute;
+    top: 150px;
+    left: 30px;
+}
+
+#btnTea {
+    margin: 0;
+    background-color: #4a77d4;
+    border: 1px solid #3762bc;
+    color: #fff;
+    font-size: 15px;
+    width: 150px;
+    height: 30px;
+    position: absolute;
+    top: 200px;
+    left: 30px;
+}
+
+.btn {
+    margin: 0;
+    background-color: #4a77d4;
+    border: 1px solid #3762bc;
+    color: #fff;
+    font-size: 15px;
+    width: 10%;
+    height: 25px;
+}
+
+
+.panel {
+    background-color: white;
+    width: 75%;
+    float: right;
+    position: absolute;
+    right:5%;
+    height:1000px;
+    
+}
+
+#lblDate{
+    float:right;
+}
+
+#btnTest {
+    margin: 0;
+    background-color: #4a77d4;
+    border: 1px solid #3762bc;
+    color: #fff;
+    font-size: 15px;
+    width: 150px;
+    height: 30px;
+    position: absolute;
+    top: 150px;
+    left: 30px;
+}
+
+#btnExamSco {
+    margin: 0;
+    background-color: #4a77d4;
+    border: 1px solid #3762bc;
+    color: #fff;
+    font-size: 15px;
+    width: 150px;
+    height: 30px;
+    position: absolute;
+    top: 200px;
+    left: 30px;
+}
+#btnPutExam {
+    margin: 0;
+    background-color: #4a77d4;
+    border: 1px solid #3762bc;
+    color: #fff;
+    font-size: 15px;
+    width: 150px;
+    height: 30px;
+    position: absolute;
+    top: 250px;
+    left: 30px;
+}

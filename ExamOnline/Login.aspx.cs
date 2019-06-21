@@ -15,11 +15,7 @@ public partial class Login1 : System.Web.UI.Page
 
     }
 
-    //验证码模块
-    private void YanZhengMa()
-    {
-
-    }
+    
 
     string getConnectionString()
     {
@@ -65,12 +61,17 @@ public partial class Login1 : System.Web.UI.Page
                 if ("学生" == Session["sf"].ToString()) 
                 {
                     Session["Class"] = reader["Class"];
-                    Response.Redirect("Main.aspx");
+                    Response.Redirect("Student.aspx");
                 }
 
                 if ("教师" == Session["sf"].ToString())
                 {
                     Session["Course"] = reader["Course"];
+                    Response.Redirect("Teacher.aspx");
+                }
+                else
+                {
+                    Response.Redirect("Admin.aspx");
                 }
  
             }
