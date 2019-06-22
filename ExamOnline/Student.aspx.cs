@@ -21,8 +21,10 @@ public partial class _Default : System.Web.UI.Page
         lblClass.Text = Session["Class"].ToString();
         
         GridView1_DataBind();
-        if (GridView1.Rows[0] != null)
+        if (GridView1.Rows.Count==0)
+        {
             Label1.Text = "您当前有待参加的考试！";
+        }
         else
             Label1.Text = "当前没有考试";
     }
@@ -59,7 +61,7 @@ public partial class _Default : System.Web.UI.Page
 
     protected void btnInfo_Click(object sender, EventArgs e)
     {
-
+        Response.Redirect("Info.aspx");
     }
 
     protected void btnExam_Click(object sender, EventArgs e)
@@ -67,8 +69,10 @@ public partial class _Default : System.Web.UI.Page
         Panel_Exam.Visible = true;
         Panel_Score.Visible = false;
         GridView1_DataBind();
-        if (GridView1.Rows[0] != null)
+        if (GridView1.Rows.Count == 0)
+        {
             Label1.Text = "您当前有待参加的考试！";
+        }
         else
             Label1.Text = "当前没有考试";
     }

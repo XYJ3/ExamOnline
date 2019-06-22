@@ -69,7 +69,7 @@ public partial class Teacher : System.Web.UI.Page
             txbAnsD.Enabled = true;
             txbRightAns.Enabled = true;
             dplCourse.Enabled = true;
-            dpl_Find_Type.Enabled = true;
+            dplType.Enabled = true;
         }
         
         //添加
@@ -133,6 +133,7 @@ public partial class Teacher : System.Web.UI.Page
 
     protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
     {
+        GridView1.Visible = false;
         btnTextIns.Text = "修改";
         Panel_TextAdd.Visible = true;
         btnTestDel.Visible = true;
@@ -247,5 +248,30 @@ public partial class Teacher : System.Web.UI.Page
         {
             Response.Write("<script>alert('发布成功！')</script>");
         }
+    }
+
+    protected void dplType_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (dplType.SelectedValue == "填空")
+        {
+            txbAnsA.Enabled = false;
+            txbAnsB.Enabled = false;
+            txbAnsC.Enabled = false;
+            txbAnsD.Enabled = false;
+        }
+        else
+        {
+            txbAnsA.Enabled = true;
+            txbAnsB.Enabled = true;
+            txbAnsC.Enabled = true;
+            txbAnsD.Enabled = true;
+        }
+    }
+
+
+
+    protected void btnInfo_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Info.aspx");
     }
 }

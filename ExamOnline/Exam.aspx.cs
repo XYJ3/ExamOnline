@@ -19,7 +19,34 @@ public partial class Exam : System.Web.UI.Page
         lblSex.Text = Session["Sex"].ToString();
         lblClass.Text = Session["CLass"].ToString();
         lblSF.Text = Session["SF"].ToString();
+        
+        if (!IsPostBack)
+        {
+            Session["flag"] = 0;
+            string queryStr = "select * from tb_Exam where ID=" + ExamID;
+            SqlConnection conn = new SqlConnection(getConnectionString());
+            SqlCommand commed = new SqlCommand(queryStr, conn);
+            conn.Open();
+            SqlDataReader reader = commed.ExecuteReader();
+            int nom = 0;
+            if (reader.Read())
+            {
 
+                lblExamName.Text = reader["Name"].ToString();
+                Session["KM"] = reader["Course"].ToString();
+                nom = Convert.ToInt32(reader["Nom"].ToString());
+            }
+            reader.Close();
+            Session["tNom"] = nom;
+            SqlCommand cmd = new SqlCommand("select top " + nom + " * from tb_Test where Course='" + Session["KM"].ToString() + "' order by newid()", conn);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+            da.Fill(dt);
+            Session["dt"] = dt;    //获取考题，并存入session
+            conn.Close();
+        }
+        
         StartExam();
     }
 
@@ -38,36 +65,24 @@ public partial class Exam : System.Web.UI.Page
         return WebConfigurationManager.ConnectionStrings["ExamOnlineConnectionString"].ConnectionString;
     }
 
-    public string[] Ans=new string[100] ;
-    public string[] RightAns=new string[100];
-    public int xi=0,ti=0,tiNum;
-    public int[] x =new int[100];
-    public int[] t =new int[100];
+
+    
+    string[] RightAns = new string[100];//记录正确答案
+    int xi = 0, ti = 0;     //下标
+    int[] x = new int[100];  //记录选择题题号
+    int[] t = new int[100];  //记录填空题题号
     //随机抽出试题
     private void StartExam()
     {
-        
-        
-        int nom = 0;
-        string queryStr = "select * from tb_Exam where ID="+ExamID;
-        SqlConnection conn = new SqlConnection(getConnectionString());
-        SqlCommand commed = new SqlCommand(queryStr, conn);
-        conn.Open();
-        SqlDataReader reader = commed.ExecuteReader();
-        if(reader.Read())
-        {
-            
-            lblExamName.Text = reader["Name"].ToString();
-            Session["KM"] = reader["Course"].ToString();
-            nom = Convert.ToInt32(reader["Nom"].ToString());
-        }
-        reader.Close();
+        int nom = Convert.ToInt32(Session["tNom"]);
         int i = 1;
-        tiNum = nom;
-        SqlCommand cmd = new SqlCommand("select top " + nom + " * from tb_Test where Course='" + Session["KM"].ToString() + "' order by newid()", conn);
-        SqlDataReader sdr = cmd.ExecuteReader();            
-        while (sdr.Read())
+                  
+        int j = 0;
+        DataTable dt = (DataTable)Session["dt"];
+        while (j < dt.Rows.Count)
         {
+
+            DataRow sdr = dt.Rows[j];
             if (sdr["Type"].ToString() == "选择")
             {
                 Literal litXuan = new Literal();             //创建Literal控件
@@ -81,10 +96,13 @@ public partial class Exam : System.Web.UI.Page
                 cbk.Items.Add("C. " + Server.HtmlEncode(sdr["AnsC"].ToString()));   //添加选项C
                 cbk.Items.Add("D. " + Server.HtmlEncode(sdr["AnsD"].ToString()));   //添加选项D
                 cbk.Font.Size = 11;
-                for (int j = 1; j <= 4; j++)
-                {
-                    cbk.Items[j - 1].Value = j.ToString();
-                }
+
+                cbk.Items[0].Value = "A";
+                cbk.Items[1].Value = "B";
+                cbk.Items[2].Value = "C";
+                cbk.Items[3].Value = "D";
+
+
                 RightAns[i] = sdr["RightAns"].ToString();                       //获取试题的正确答案
                 x[xi] = i;
                 xi++;
@@ -104,7 +122,7 @@ public partial class Exam : System.Web.UI.Page
                 
                 textBox.Font.Size = 11;
                 
-                Ans[i] = sdr["RightAns"].ToString();
+                RightAns[i] = sdr["RightAns"].ToString();
                 t[ti] = i;
                 ti++;
                 Panel1.Controls.Add(litTian);                    //将控件添加到Panel中
@@ -112,15 +130,16 @@ public partial class Exam : System.Web.UI.Page
                 Panel1.Controls.Add(litti);                 //将控件添加到Panel中
                 i++;
             }
-            //tNUM++;                                     //使tNUM递增
+            j++;
         }
-        sdr.Close();
-        conn.Close();
+            
     }
-
+    //交卷
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
-        for(int i=0;i<=xi;i++)
+        int nom = Convert.ToInt32(Session["tNom"]);
+        string[] Ans = new string[100];
+        for (int i=0;i<=xi;i++)
         {
             RadioButtonList list = (RadioButtonList)Panel1.FindControl("cbk" + x[i].ToString());
             if (list != null)
@@ -133,7 +152,7 @@ public partial class Exam : System.Web.UI.Page
         }
         for (int i = 0; i <= ti; i++)
         {
-            TextBox txb = (TextBox)Panel1.FindControl("textBox" + t[i].ToString());
+            TextBox txb = (TextBox)Panel1.FindControl("txbti" + t[i].ToString());
             if (txb != null)
             {
                 if (txb.Text.ToString() != "")
@@ -143,7 +162,7 @@ public partial class Exam : System.Web.UI.Page
             }
         }
         int score = 0;
-        for (int a = 0; a < tiNum; a++)
+        for (int a = 1; a <= nom; a++)
         {
             if (RightAns[a] == Ans[a])
             {

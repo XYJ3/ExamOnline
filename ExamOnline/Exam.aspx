@@ -49,10 +49,13 @@
                         <td>
                             <asp:Button ID="btnInfo" runat="server" OnClick="btnInfo_Click" Text="个人中心" />
                             <asp:Button ID="btnLoginOut" runat="server" OnClick="btnLoginOut_Click" Text="登出" />
-                            <asp:Button ID="btnSubmit" runat="server" OnClick="btnSubmit_Click" Text="交卷" />
+                            <input id="Submit1" type="button" value="submit" onserverclick="btnSubmit_Click" runat="server"/>
+                             <asp:Button ID="btnSubmit" runat="server" OnClick="btnSubmit_Click" Text="交卷" UseSubmitBehavior="False" />                                                  
                         </td>
                     </tr>
                 </table>
+                <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+                
             </div>
             <div id="time" style="background-color:beige;width:70%;height:80px">
                 <h2>
@@ -60,9 +63,13 @@
                 <asp:Label ID="lblTime" runat="server" ForeColor="#990000"></asp:Label>
             </div>
             
-            <div style="width:70%;background-color:white;height:1000px">
-              
-                <asp:Panel ID="Panel1" runat="server" HorizontalAlign="left"></asp:Panel>
+            <div style="width:70%;background-color:white;height:auto">
+              <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                  <ContentTemplate>
+                      <asp:Panel ID="Panel1" runat="server" HorizontalAlign="left"></asp:Panel>
+                  </ContentTemplate>
+                </asp:UpdatePanel>
+                
                 
             </div>
             

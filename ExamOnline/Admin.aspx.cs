@@ -47,7 +47,7 @@ public partial class Admin : System.Web.UI.Page
     //个人信息
     protected void btnInfo_Click(object sender, EventArgs e)
     {
-
+        Response.Redirect("Info.aspx");
     }
 
     protected void btnLoginOut_Click(object sender, EventArgs e)
@@ -65,6 +65,7 @@ public partial class Admin : System.Web.UI.Page
         txb_Stu_Class.Text = "";
         txb_Stu_Passwd.Text = "";
         btn_Add.Text = "提交";
+        txb_Stu_ID.Enabled = true;
     }
 
     protected void btnShowAllStu_Click(object sender, EventArgs e)
@@ -134,8 +135,7 @@ public partial class Admin : System.Web.UI.Page
             txb_Stu_Class.Enabled = true;
             txb_Stu_Passwd.Enabled = true;
         }
-        
-        else
+        if (btn_Add.Text == "提交")
         {
             if (txb_Stu_ID.Text != "" && txb_Stu_Name.Text != "" && txb_Stu_Class.Text != "" && txb_Stu_Passwd.Text != "")
             {
@@ -144,6 +144,7 @@ public partial class Admin : System.Web.UI.Page
                 if (SqlComNon(queryStr) == 1)
                 {
                     Response.Write("<script>alert('添加成功！')</script>");
+                    Panel_StuInsert.Visible = false;
                 }
             }
             else
@@ -158,21 +159,21 @@ public partial class Admin : System.Web.UI.Page
     protected void btnFindT_Click(object sender, EventArgs e)
     {
         string queryStr = "select * from tb_Teacher ";
-        if (TextBox1.Text != "")
+        if (TextBox2.Text != "")
         {
-            switch (DropDownList1.SelectedValue.Trim().ToString())
+            switch (DropDownList2.SelectedValue.Trim().ToString())
             {
                 case "工号":
-                    queryStr += "where ID='" + TextBox1.Text.Trim().ToString() + "'";
+                    queryStr += "where ID=" + Convert.ToInt16(TextBox2.Text.Trim().ToString());
                     break;
                 case "姓名":
-                    queryStr += "where Name='" + TextBox1.Text.Trim().ToString() + "'";
+                    queryStr += "where Name='" + TextBox2.Text.Trim().ToString() + "'";
                     break;
                 case "科目":
-                    queryStr += "where Course='" + TextBox1.Text.Trim().ToString() + "'";
+                    queryStr += "where Course='" + TextBox2.Text.Trim().ToString() + "'";
                     break;
                 case "性别":
-                    queryStr += "where Sex='" + TextBox1.Text.Trim().ToString() + "'";
+                    queryStr += "where Sex='" + TextBox2.Text.Trim().ToString() + "'";
                     break;
 
             }
@@ -196,6 +197,7 @@ public partial class Admin : System.Web.UI.Page
         da.Fill(ds);
         GridView2.DataSource = ds.Tables[0];
         GridView2.DataBind();
+        Panel_TeaAdd.Visible = false;
 
     }
     //录入教师信息
@@ -248,6 +250,14 @@ public partial class Admin : System.Web.UI.Page
     protected void btnTeaA_Click(object sender, EventArgs e)
     {
         //修改
+        if (btnTeaA.Text == "确定")
+        {
+            string queryStr = "update tb_Teacher SET Name='" + txbTeaName.Text.Trim() + "',Sex='" + rblTeaSex.SelectedValue + "',Course='" + txbTeaCourse.Text.Trim() + "',Passwd='" + TxbTeaPas.Text.Trim() + "' where ID = '" + txbTeaID.Text.Trim() + "'";
+            if (SqlComNon(queryStr) == 1)
+            {
+                Response.Write("<script>alert('修改成功！')</script>");
+            }
+        }
         if (btnTeaA.Text == "修改")
         {
             btnTeaA.Text = "确定";
@@ -258,22 +268,16 @@ public partial class Admin : System.Web.UI.Page
             txbTeaCourse.Enabled = true;
             TxbTeaPas.Enabled = true;
         }
-        if (btnTeaA.Text == "确定")
-        {
-            string queryStr = "update tb_Teacher SET Name='" + txbTeaName.Text.Trim() + "',Sex='" + rblTeaSex.SelectedValue + "',Course='" + txbTeaCourse.Text.Trim() + "',Passwd='" + TxbTeaPas.Text.Trim() + "' where ID = '" + txbTeaID.Text.Trim() + "'";
-            if (SqlComNon(queryStr) == 1)
-            {
-                Response.Write("<script>alert('修改成功！')</script>");
-            }
-        }
+        
         //添加
-        else
+        if(btnTeaA.Text == "提交")
         {
             string queryStr = "insert into tb_Teacher (ID,Name,Sex,Course,Passwd) values ('" + txbTeaID.Text.Trim().ToString() + "','" + txbTeaName.Text.Trim().ToString() + "','" + rblTeaSex.SelectedValue.ToString() + "','" + txbTeaCourse.Text.Trim().ToString() + "','" + TxbTeaPas.Text.ToString().ToString() + "')";
 
             if (SqlComNon(queryStr) == 1)
             {
                 Response.Write("<script>alert('添加成功！')</script>");
+                Panel_TeaAdd.Visible = false;
             }
         }
     }

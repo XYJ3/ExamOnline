@@ -113,7 +113,11 @@
                         <SortedDescendingCellStyle BackColor="#FFFDF8" />
                         <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
                     </asp:GridView>
-                    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ExamOnlineConnectionString %>" SelectCommand="SELECT * FROM [学生成绩]"></asp:SqlDataSource>
+                    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ExamOnlineConnectionString %>" SelectCommand="SELECT * FROM [学生成绩] WHERE ([StudentID] = @StudentID)">
+                        <SelectParameters>
+                            <asp:SessionParameter Name="StudentID" SessionField="ID" Type="Int32" />
+                        </SelectParameters>
+                    </asp:SqlDataSource>
                     <br />
                     <br />
                 </div>

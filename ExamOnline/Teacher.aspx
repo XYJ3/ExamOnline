@@ -28,7 +28,7 @@
                         <td>身份：<asp:Label ID="lblSF" runat="server"></asp:Label>
                         </td>
                         <td>
-                            <asp:Button ID="btnInfo" runat="server"  Text="个人中心" />
+                            <asp:Button ID="btnInfo" runat="server"  Text="个人中心" OnClick="btnInfo_Click" />
                             <asp:Button ID="btnLoginOut" runat="server" Text="登出" OnClick="btnLoginOut_Click" />
                         </td>
                     </tr>
@@ -99,7 +99,7 @@
                             <tr>
                                 <td class="auto-style5">类型：</td>
                                 <td>
-                                    <asp:DropDownList ID="dplType" runat="server">
+                                    <asp:DropDownList ID="dplType" runat="server" AutoPostBack="True" OnSelectedIndexChanged="dplType_SelectedIndexChanged">
                                         <asp:ListItem>选择</asp:ListItem>
                                         
                                         <asp:ListItem>填空</asp:ListItem>
@@ -157,6 +157,7 @@
             <asp:Panel ID="Panel_Score" runat="server"  HorizontalAlign="center" CssClass="panel" align="center">
                 <h1>考试成绩</h1>
                 <div align="center">
+                    <br/>
                 <asp:GridView ID="GridView2" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" CellPadding="4" DataKeyNames="ID" DataSourceID="SqlDataSource1" ForeColor="#333333" GridLines="None">
                     <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                     <Columns>
